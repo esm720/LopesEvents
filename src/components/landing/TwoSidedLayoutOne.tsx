@@ -16,7 +16,7 @@ export default function TwoSidedLayout({
           position: "relative",
           display: "flex",
           alignItems: "center",
-          py: 10,
+          pt: 10,
           gap: 4,
           [theme.breakpoints.up(834)]: {
             flexDirection: "row",

@@ -4,7 +4,9 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import NavBar from './components/NavBar'
 import PageHeader from './components/landing/PageHeader'
-import BlockOne from './components/landing/BlockOne'
+import Features from './components/landing/Features'
+import Highlights from './components/landing/Highlights'
+import Footer from './components/landing/Footer'
 
 function App() {
 
@@ -12,6 +14,10 @@ function App() {
     <>
       <NavBar />
       <PageHeader />
+      <Features />
+      <Highlights />
+
+      <Footer />
     </>
   )
 }
