@@ -12,6 +12,7 @@ import FacebookIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/X';
 import AutopGraphIcon from '@mui/icons-material/AutoGraphOutlined'
+import RunningLope from '../../assets/static/RunningLope_BLACK.png'
 
 function Copyright() {
   return (
@@ -55,7 +56,9 @@ export default function Footer() {
           }}
         >
           <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
-            <AutopGraphIcon sx={{ color: "black" }}/>
+          <Link to={'/'}>
+        <img src={RunningLope} alt="" width={50} height={40}/>
+          </Link>
             <Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 2 }}>
               Join the newsletter
             </Typography>

@@ -81,10 +81,8 @@ export default function Highlights() {
             Highlights
           </Typography>
           <Typography variant="body1" sx={{ color: 'grey.400' }}>
-            Explore why our product stands out: Metzilla is Adaptable
-            , Acccessable, User-Friendy Design, and an innovative approach 
-            to a time tested process. Enjoy reliable customer support and
-            precision in every detail.
+            Explore why our product stands out: LopesEvents is Adaptable
+            , Acccessable, User-Friendy Design, and a great way of managing a busy schedule.
           </Typography>
         </Box>
         <Grid container spacing={2}>

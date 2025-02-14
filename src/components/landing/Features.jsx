@@ -16,7 +16,7 @@ import ViewQuiltRoundedIcon from '@mui/icons-material/ViewQuiltRounded';
 const items = [
   {
     icon: <ViewQuiltRoundedIcon />,
-    title: 'Calander',
+    title: 'Calender',
     description:
       'See what days have events happening in an instant. Plan your schedule months in advance.',
     imageLight: `url(https://res.cloudinary.com/djqhpdau5/image/upload/v1738443728/Calendar_cs5m5m.png)`,

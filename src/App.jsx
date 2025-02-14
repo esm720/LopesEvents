@@ -7,6 +7,8 @@ import PageHeader from './components/landing/PageHeader'
 import Features from './components/landing/Features'
 import Highlights from './components/landing/Highlights'
 import Footer from './components/landing/Footer'
+import Auth from './firebase/AuthService'
+import FloatUpButton from './components/smallcomponents/TopFloatButton'
 
 function App() {
 
@@ -16,8 +18,8 @@ function App() {
       <PageHeader />
       <Features />
       <Highlights />
-
       <Footer />
+      <FloatUpButton />
     </>
   )
 }
