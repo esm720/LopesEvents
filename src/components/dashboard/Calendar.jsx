@@ -14,6 +14,9 @@ const App = () => {
     setValue(newValue);
   };
 
+  {
+    /* DO THIS */
+  }
   const listData = [
     {
       type: "warning",

@@ -34,11 +34,14 @@ export default function Dashboard() {
   const { TextArea } = Input;
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [createForm] = Form.useForm();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8080/api/getEvents"); // Replace with your API endpoint
+        const response = await axios.get(
+          "https://lopes-events-backend.vercel.app/events/events"
+        ); // Replace with your API endpoint
         setOptions(response.data);
         setLoading(false);
       } catch (error) {
@@ -53,9 +56,12 @@ export default function Dashboard() {
   // Sending & Receiving data
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
+  const handleCreate = async (values) => {
     try {
-      await axios.post("http://127.0.0.1:8080/api/test", values);
+      await axios.post(
+        "https://lopes-events-backend.vercel.app/events/event",
+        values
+      );
       alert("Event Submitted");
       navigate("/Dashboard");
     } catch (error) {
@@ -63,9 +69,12 @@ export default function Dashboard() {
     }
   };
 
-  const onFinishDelete = async (values) => {
+  const handleDelete = async (values) => {
     try {
-      await axios.post("http://127.0.0.1:8080/api/deletetest", values);
+      const base = "https://lopes-events-backend.vercel.app/events/delete/";
+      const eventId = values.id;
+      const url = base + eventId;
+      await axios.delete(url);
       alert("Delete Request Submitted");
       navigate("/Dashboard");
     } catch (error) {
@@ -76,8 +85,6 @@ export default function Dashboard() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-  const [form] = Form.useForm();
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -130,8 +137,8 @@ export default function Dashboard() {
           style={{
             maxWidth: 700,
           }}
-          form={form}
-          onFinish={onFinish}
+          form={createForm}
+          onFinish={handleCreate}
           onFinishFailed={onFinishFailed}
         >
           <Form.Item label="Free Event?" name="free" valuePropName="checked">
@@ -232,15 +239,14 @@ export default function Dashboard() {
           style={{
             maxWidth: 600,
           }}
-          form={form}
-          onFinish={onFinishDelete}
+          onFinish={handleDelete}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item label="Your Events" name="event">
+          <Form.Item label="Your Events" name="id">
             <Select loading={loading} placeholder="Select your Event...">
               {options.map((option) => (
-                <Select.Option key={options.value} value={option.label}>
-                  {option.label}
+                <Select.Option key={options._id} value={option._id}>
+                  {option.title}
                 </Select.Option>
               ))}
             </Select>
