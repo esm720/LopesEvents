@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Carousel from "../components/dashboard/Carousel";
 import { Typography } from "@mui/joy";
@@ -31,17 +32,41 @@ import BackTop from "antd/es/float-button/BackTop.js";
 export default function Dashboard() {
   const { RangePicker } = DatePicker;
   const { TextArea } = Input;
+  const [options, setOptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8080/api/getEvents"); // Replace with your API endpoint
+        setOptions(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Sending & Receiving data
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
     try {
-      await axios.post(
-        "https://lopes-events-backend.vercel.app/events/event",
-        values
-      );
-      alert("Application Submitted");
+      await axios.post("http://127.0.0.1:8080/api/test", values);
+      alert("Event Submitted");
+      navigate("/Dashboard");
+    } catch (error) {
+      alert("Error: Verify all information is correct.");
+    }
+  };
+
+  const onFinishDelete = async (values) => {
+    try {
+      await axios.post("http://127.0.0.1:8080/api/deletetest", values);
+      alert("Delete Request Submitted");
       navigate("/Dashboard");
     } catch (error) {
       alert("Error: Verify all information is correct.");
@@ -207,16 +232,21 @@ export default function Dashboard() {
           style={{
             maxWidth: 600,
           }}
+          form={form}
+          onFinish={onFinishDelete}
+          onFinishFailed={onFinishFailed}
         >
-          <Form.Item label="Your Events">
-            <Select>
-              <Select.Option value="foodDrive">Food Drive</Select.Option>
-              <Select.Option value="cleanUp">Community Cleanup</Select.Option>
-              <Select.Option value="SBParty">SuperBowl Party</Select.Option>
+          <Form.Item label="Your Events" name="event">
+            <Select loading={loading} placeholder="Select your Event...">
+              {options.map((option) => (
+                <Select.Option key={options.value} value={option.label}>
+                  {option.label}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
           <Form.Item label="Delete Event">
-            <Button>Delete</Button>
+            <Button htmlType="submit">Delete</Button>
           </Form.Item>
         </Form>
       </Container>
